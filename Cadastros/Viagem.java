@@ -34,27 +34,30 @@ public class Viagem {
 	public int getMinutosTermino() {
 		return duracao.minutosTermino;
 	}
+	
+	public int getHoraTotal() {
+		return duracao.duracaoHoras;
+	}
 
 	public int getDuracaoHoras() {
-		if (duracao.horaTermino == duracao.horaInicio)
+		if (getHoraTermino() == getHoraInicio())
 			duracao.duracaoHoras = 0;
-		if (duracao.horaTermino > duracao.horaInicio) //varias possibilidades... 
-			if (duracao.horaTermino == duracao.horaInicio + 1) {  
-				if (duracao.minutosTermino < duracao.minutosInicio)  //nao chegou a uma hora
+		if (getHoraTermino() > getHoraInicio()) //varias possibilidades... 
+			if (getHoraTermino() == getHoraInicio() + 1) {  
+				if (getMinutosTermino() < getMinutoInicio())  //nao chegou a uma hora
 					duracao.duracaoHoras = 0;
 				else //durou pelo menos uma hora
 					duracao.duracaoHoras = 1;
 			} else { //possivelmente ultrapassou duas horas
-				if (duracao.horaTermino - duracao.horaInicio > 2) //
-					duracao.duracaoHoras = duracao.horaTermino - duracao.horaInicio;
-				else if (duracao.horaTermino - duracao.horaInicio == 2 &&   //certamente menos de duas horas  
-						duracao.minutosTermino < duracao.minutosInicio)    //e mais de uma hora
+				if (getHoraTermino() - getHoraInicio() > 2) 
+					duracao.duracaoHoras = getHoraTermino() - getHoraInicio();
+				else if (getHoraTermino() - getHoraInicio() == 2 &&   //certamente menos de duas horas  
+						getMinutosTermino() < getMinutoInicio())    //e mais de uma hora
 					duracao.duracaoHoras = 1;
 				else //duracao de duas horas, certamente
 					duracao.duracaoHoras = 2;
-					
 			}
-		if (duracao.horaTermino < duracao.horaInicio) 
+		else if (getHoraTermino() < getHoraInicio()) 
 			duracao.duracaoHoras = -1; //para casos em que a hora de termino nao foi registrada
 		return duracao.duracaoHoras;
 	}
